@@ -1,0 +1,4 @@
+opencv-python
+pietoolbelt
+numpy
+zlib
