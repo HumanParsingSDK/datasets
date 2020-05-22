@@ -5,6 +5,10 @@ import human_datasets
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
+with open('requirements.txt', 'r') as req_file:
+    requirements = req_file.readlines()
+
+
 setuptools.setup(
     name="human_datasets",
     version=human_datasets.__version__,
@@ -13,9 +17,9 @@ setuptools.setup(
     description="Utils for human parsing datasets",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    # url="https://github.com/toodef/cv_utils",
+    url="https://github.com/HumanParsingSDK/datasets",
     packages=setuptools.find_packages(exclude=['tests']),
-    install_requires=['numpy', 'cv_utils'],
+    install_requires=requirements,
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Programming Language :: Python :: 3',
