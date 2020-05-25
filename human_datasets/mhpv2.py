@@ -37,4 +37,4 @@ class MHPV2(BasicDataset):
             cur_mask[cur_mask > 0] = 1
             composer.add_mask(cur_mask, cls=0)
 
-        return {'data': img, 'target': composer.compose()}
+        return {'data': cv2.cvtColor(img, cv2.COLOR_BGR2RGB), 'target': composer.compose()}

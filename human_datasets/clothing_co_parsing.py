@@ -25,4 +25,4 @@ class ClothingCoParsingDataset(BasicDataset):
         img = cv2.imread(item['data'])
         mask = scipy.io.loadmat(item['target'])['groundtruth']
         mask[mask > 0] = 1
-        return {'data': img, 'target': mask.astype(np.float32)}
+        return {'data': cv2.cvtColor(img, cv2.COLOR_BGR2RGB), 'target': mask.astype(np.float32)}

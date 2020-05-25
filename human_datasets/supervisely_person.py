@@ -43,7 +43,7 @@ class SuperviselyPersonDataset(BasicDataset):
         super().__init__(final_items)
 
     def _interpret_item(self, item) -> any:
-        return {'data': cv2.imread(item['data']),
+        return {'data': cv2.cvtColor(cv2.imread(item['data']), cv2.COLOR_BGR2RGB),
                 'target': {'masks': [SuperviselyPersonDataset._object_to_mask(obj) for obj in item['target']['objects']],
                            'size': item['target']['size']}}
 

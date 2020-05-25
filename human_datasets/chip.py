@@ -23,4 +23,4 @@ class CHIP(BasicDataset):
         img = cv2.imread(item['data'])
         mask = cv2.imread(item['target'], cv2.IMREAD_UNCHANGED)
         mask[mask > 0] = 1
-        return {'data': img, 'target': mask}
+        return {'data': cv2.cvtColor(img, cv2.COLOR_BGR2RGB), 'target': mask}
