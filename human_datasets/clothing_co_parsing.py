@@ -9,7 +9,7 @@ from pietoolbelt.datasets.common import get_root_by_env
 
 class ClothingCoParsingDataset(BasicDataset):
     def __init__(self):
-        root = get_root_by_env("CLOTHIG_CO_PARSING_DATASET")
+        root = get_root_by_env("CLOTHING_CO_PARSING_DATASET")
         img_dir = os.path.join(root, 'photos')
         masks_dir = os.path.join(root, 'annotations')
 

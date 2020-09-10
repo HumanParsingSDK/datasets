@@ -31,13 +31,21 @@ def vis_picsart(vis_type: str):
             cv2.imwrite(os.path.join('img', "{}.jpg".format(i)), img)
 
 
+def bbox_viz(image: np.ndarray, bboxes: np.ndarray) -> np.ndarray:
+    res = image.copy()
+    for bbox in bboxes:
+        res = cv2.rectangle(res, (bbox[0], bbox[1]), (bbox[2], bbox[3]), (255, 0, 0), 2)
+    return res
+
+
 def vis_ochuman(vis_type: str):
-    dataset = OCHumanDataset()
+    dataset = OCHumanDataset(enable_masks=True, enable_bbox=True)
 
     # vis = ContourVisualizer(thickness=1)
     vis = ColormapVisualizer(proportions=[0.3, 0.7])
     for i, it in enumerate(dataset):
-        img = vis.process_img(cv2.cvtColor(it['data'], cv2.COLOR_RGB2BGR), it['target'].astype(np.uint8))
+        img = vis.process_img(cv2.cvtColor(it['data'], cv2.COLOR_RGB2BGR), it['target']['mask'].astype(np.uint8))
+        img = bbox_viz(img, it['target']['bbox'])
 
         if vis_type == 'window':
             cv2.imshow('img', img)
@@ -118,11 +126,12 @@ def vis_lip(vis_type: str):
 
 
 def vis_chip(vis_type: str):
-    dataset = CHIP()
+    dataset = CHIP(enable_bbox=True, enable_masks=True)
     vis = ColormapVisualizer(proportions=[0.5, 0.5])
 
     for i, it in enumerate(dataset):
-        img = vis.process_img(it['data'], (255 * it['target']).astype(np.uint8))
+        img = vis.process_img(cv2.cvtColor(it['data'], cv2.COLOR_RGB2BGR), (255 * it['target']['mask']).astype(np.uint8))
+        img = bbox_viz(img, it['target']['bbox'])
 
         if vis_type == 'window':
             cv2.imshow('img', img)
